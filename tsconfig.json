@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "ssr": [
+        "client/ssr"
+      ],
+      "client/*": [
+        "client/lib/*"
+      ],
+      "server/*": [
+        "server/lib/*"
+      ],
+    },
+    "types": [
+      "./global"
+    ],
+    "target": "ES5",
+    "module": "CommonJS",
+    "strict": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  }
+}
