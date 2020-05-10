@@ -38,15 +38,20 @@ import { createConfig } from "../webpack.client.config";
   app.exp.use(middleware);
   app.exp.use(hotMiddleware);
 
-  await app.populate();
-
-  app.exp.use((req, res) => {
+  await app.populate(async (req, res) => {
     const html = fs
       .readFileSync(path.resolve(__dirname, "./public/index.html"))
       .toString();
 
     const ssr = importFresh("./public/ssr") as typeof import("./public/ssr");
 
-    app.serverSideRendering(req, res, html, ssr);
+    const layout = await ssr.createLayout(
+      req.url,
+      html,
+      app.graphql.schemaLink
+    );
+
+    res.status(200);
+    res.end(layout);
   });
 })();

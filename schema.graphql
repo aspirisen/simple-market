@@ -3,9 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Client {
-  user: User!
-  cart: [Product!]!
+type Mutation {
+  addUser(data: NewUser!): User!
+}
+
+input NewUser {
+  name: String!
+  email: String!
+  password: String!
 }
 
 type Product {
@@ -23,8 +28,7 @@ enum ProductKind {
 }
 
 type Query {
-  clients: [Client!]!
-  user(id: String!): User!
+  products: [Product!]!
   users: [User!]!
 }
 

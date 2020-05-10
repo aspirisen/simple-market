@@ -11,13 +11,19 @@ import html from "./public/index.html";
 
   const app = new Application({ url: process.env.MONGODB_URI });
 
-  app.populate();
-
   app.exp.use(
     express.static(path.resolve(__dirname, "./public"), { index: false })
   );
 
-  app.exp.use((req, res) => app.serverSideRendering(req, res, html, ssr));
+  app.populate(async (req, res) => {
+    const layout = await ssr.createLayout(
+      req.url,
+      html,
+      app.graphql.schemaLink
+    );
+    res.status(200);
+    res.end(layout);
+  });
 
   const port = process.env.PORT || 3000;
 

@@ -5,16 +5,20 @@ import { User } from "./User";
 import { Product } from "./Product";
 
 @ObjectType()
-export class Client extends BaseModel<Client> {
+export class Order extends BaseModel<Order> {
   @Field(() => User)
   @prop({ ref: User })
   public user!: Ref<User>;
 
   @Field(() => [Product])
-  @arrayProp({ ref: Product })
-  public cart!: Ref<Product[]>;
+  @arrayProp({ items: Product })
+  public products!: Product[];
+
+  @Field()
+  @prop()
+  public totalPrice!: number;
 }
 
-export const ClientModel = getModelForClass(Client, {
-  schemaOptions: { collection: "Client" },
+export const OrderModel = getModelForClass(Order, {
+  schemaOptions: { collection: "Order" },
 });

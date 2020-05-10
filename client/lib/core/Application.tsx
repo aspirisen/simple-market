@@ -1,11 +1,14 @@
 import React from "react";
-import { MySuperComponent } from "./MySuperComponent";
+import { Login } from "client/routes/Login";
 
-export const Application = () => {
+export interface ApplicationProps {
+  location?: string;
+}
+
+export const Application = (_: ApplicationProps) => {
   return (
     <div>
-      App
-      <MySuperComponent />
+      <Login />
     </div>
   );
 };

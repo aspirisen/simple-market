@@ -1,2 +1,2 @@
-export * from "./ClientsController/ClientsController";
-export * from "./UserController/UserController";
+export * from "./ProductsController/ProductsController";
+export * from "./UsersController/UsersController";

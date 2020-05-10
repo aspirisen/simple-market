@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { UserModel, User } from "server/models/User";
-import { Client, ClientModel } from "server/models/Client";
 import { Product, ProductModel } from "server/models/Product";
 
 export interface DbConfig {
@@ -22,7 +20,7 @@ export class DB {
   }
 
   private async addInitialData() {
-    const hasBeenInitialized = await UserModel.findOne({});
+    const hasBeenInitialized = await ProductModel.findOne({});
 
     if (hasBeenInitialized) {
       return;
@@ -33,26 +31,6 @@ export class DB {
     const milk = new Product({ name: "Milk", kind: "MILK", price: 1.3 });
     const apple = new Product({ name: "Apple", kind: "APPLE", price: 1 });
 
-    const products = ((await ProductModel.create(
-      soup,
-      bread,
-      milk,
-      apple
-    )) as unknown) as Product[];
-
-    const user = new User({
-      email: "one@one.com",
-      name: "one",
-      password: "one",
-    });
-
-    const savedUser = await UserModel.create(user);
-
-    const client = new Client({
-      cart: products,
-      user: savedUser,
-    });
-
-    await ClientModel.create(client);
+    await ProductModel.create(soup, bread, milk, apple);
   }
 }

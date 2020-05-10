@@ -66,7 +66,7 @@ export function createConfig() {
   };
 
   if (!isProduction) {
-    config.plugins?.push(new NodemonPlugin());
+    config.plugins?.push(new NodemonPlugin({ nodeArgs: ["--inspect"] }));
   }
 
   return config;
