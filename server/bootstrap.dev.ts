@@ -15,12 +15,6 @@ import { createConfig } from "../webpack.client.config";
     dbName: "simple-market",
   });
 
-  const port = process.env.PORT || 3000;
-
-  app.exp.listen(port, () => {
-    console.info(`Server is running on http://localhost:${port}`);
-  });
-
   const config = createConfig({
     dirname: path.resolve(__dirname, "../"),
     addHmrMiddleware: true,
@@ -54,5 +48,11 @@ import { createConfig } from "../webpack.client.config";
 
     res.status(200);
     res.end(layout);
+  });
+
+  const port = process.env.PORT || 3000;
+
+  app.exp.listen(port, () => {
+    console.info(`Server is running on http://localhost:${port}`);
   });
 })();

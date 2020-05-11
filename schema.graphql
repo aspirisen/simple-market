@@ -3,7 +3,17 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Cart {
+  id: ID!
+  user: User!
+  products: [Product!]!
+  totalCount: Float!
+  totalPrice: Float!
+}
+
 type Mutation {
+  addToCart(productId: String!): Cart!
+  removeFromCart(productId: String!): Cart!
   addUser(data: NewUser!): User!
 }
 
@@ -30,12 +40,14 @@ enum ProductKind {
 }
 
 type Query {
+  cart: Cart!
   products: [Product!]!
   currentUser: User!
   users: [User!]!
 }
 
 type User {
+  id: ID!
   email: String!
   name: String!
 }

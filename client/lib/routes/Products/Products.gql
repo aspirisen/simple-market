@@ -1,9 +1,14 @@
 query LoadData {
+  products {
+    id
+    name
+    price
+    kind
+    imageUrl
+  }
+  cart {
     products {
-        id
-        name
-        price
-        kind
-        imageUrl
+      id
     }
+  }
 }

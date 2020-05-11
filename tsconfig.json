@@ -19,7 +19,7 @@
     "types": [
       "./global"
     ],
-    "target": "ES5",
+    "target": "es2016",
     "module": "CommonJS",
     "strict": true,
     "sourceMap": true,

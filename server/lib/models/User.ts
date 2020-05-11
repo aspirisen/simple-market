@@ -1,10 +1,13 @@
 import * as crypto from "crypto";
-import { Field, ObjectType } from "type-graphql";
+import { Field, ObjectType, ID } from "type-graphql";
 import { prop, getModelForClass } from "@typegoose/typegoose";
 import { BaseModel } from "server/core/BaseModel";
 
 @ObjectType()
 export class User extends BaseModel<User> {
+  @Field(() => ID)
+  public id!: string;
+
   @Field()
   @prop()
   public email!: string;

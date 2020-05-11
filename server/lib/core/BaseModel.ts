@@ -8,8 +8,10 @@ type DataPropertiesOnly<T> = {
 
 export class BaseModel<T> {
   constructor(data: Omit<DataPropertiesOnly<T>, "id">) {
-    Object.entries(data).forEach(([key, value]) => {
-      (this as any)[key] = value;
-    });
+    if (data) {
+      Object.entries(data).forEach(([key, value]) => {
+        (this as any)[key] = value;
+      });
+    }
   }
 }

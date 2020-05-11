@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
-import { UserModel, User } from "server/models/User";
 import { Context } from "server/core/GraphQL";
+import { UserModel, User } from "server/models/User";
+import { Cart, CartModel } from "server/models/Cart";
 import { NewUser } from "./inputs/NewUser";
 
 @Resolver(User)
@@ -20,6 +21,10 @@ export class UsersController {
   async addUser(@Arg("data") data: NewUser) {
     const user = new User(data);
     const userModel = await UserModel.create(user);
+
+    const cart = new Cart({ products: [], user: userModel });
+    await CartModel.create(cart);
+
     return userModel;
   }
 }

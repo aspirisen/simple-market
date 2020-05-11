@@ -14,11 +14,16 @@ export const Products = () => {
     LoadData
   );
 
+  const alreadyInCart = React.useMemo(
+    () => new Set(data?.cart.products.map((v) => v.id)),
+    [data]
+  );
+
   return (
     <Page isLoading={loading}>
       <Card.Group stackable>
         {data?.products.map((p) => (
-          <Product key={p.id} product={p} />
+          <Product key={p.id} product={p} isInCart={alreadyInCart.has(p.id)} />
         ))}
       </Card.Group>
     </Page>

@@ -10,6 +10,9 @@ export type LoadDataQuery = { __typename?: "Query" } & {
       "id" | "name" | "price" | "kind" | "imageUrl"
     >
   >;
+  cart: { __typename?: "Cart" } & {
+    products: Array<{ __typename?: "Product" } & Pick<Types.Product, "id">>;
+  };
 };
 
 export const LoadData: import("graphql").DocumentNode;

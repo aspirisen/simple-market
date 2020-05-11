@@ -1,7 +1,8 @@
 import express from "express";
+import { Document } from "mongoose";
 import { Container } from "typedi";
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
+import { buildSchema, MiddlewareFn } from "type-graphql";
 import { GraphQLSchema } from "graphql";
 import * as controllers from "../controllers";
 
@@ -17,6 +18,7 @@ export class GraphQL {
     this.schema = await buildSchema({
       resolvers: Object.values(controllers),
       emitSchemaFile: "schema.graphql",
+      globalMiddlewares: [this.operateMongooseDocuments],
       container: Container,
     });
 
@@ -43,4 +45,15 @@ export class GraphQL {
       app: this.exp,
     });
   }
+
+  private operateMongooseDocuments: MiddlewareFn<Context> = async (_, next) => {
+    const fromResolver = await next();
+    let result = fromResolver;
+
+    if (fromResolver instanceof Document) {
+      result = fromResolver.toObject({ virtuals: true });
+    }
+
+    return result;
+  };
 }

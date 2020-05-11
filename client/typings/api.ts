@@ -10,9 +10,28 @@ export type Scalars = {
   Float: number;
 };
 
+export type Cart = {
+  __typename?: "Cart";
+  id: Scalars["ID"];
+  user: User;
+  products: Array<Product>;
+  totalCount: Scalars["Float"];
+  totalPrice: Scalars["Float"];
+};
+
 export type Mutation = {
   __typename?: "Mutation";
+  addToCart: Cart;
+  removeFromCart: Cart;
   addUser: User;
+};
+
+export type MutationAddToCartArgs = {
+  productId: Scalars["String"];
+};
+
+export type MutationRemoveFromCartArgs = {
+  productId: Scalars["String"];
 };
 
 export type MutationAddUserArgs = {
@@ -39,6 +58,7 @@ export type ProductKind = "SOUP" | "BREAD" | "MILK" | "APPLE";
 
 export type Query = {
   __typename?: "Query";
+  cart: Cart;
   products: Array<Product>;
   currentUser: User;
   users: Array<User>;
@@ -46,6 +66,7 @@ export type Query = {
 
 export type User = {
   __typename?: "User";
+  id: Scalars["ID"];
   email: Scalars["String"];
   name: Scalars["String"];
 };

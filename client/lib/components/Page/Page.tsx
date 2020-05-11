@@ -7,6 +7,7 @@ import {
   Segment,
   Loader,
   Dimmer,
+  Label,
 } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
@@ -36,6 +37,7 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
           <Icon name="cart" />
           <span> </span>
           Cart
+          <Label color="teal">{data?.cart.totalCount}</Label>
         </Menu.Item>
 
         <Menu.Item position="right">

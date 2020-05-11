@@ -82,6 +82,11 @@ export function createConfig(options: ClientWebpackOptions = {}) {
           test: /\.tsx?$/,
           exclude: /node_modules/,
           loader: "ts-loader",
+          options: {
+            compilerOptions: {
+              target: "ES5",
+            },
+          },
         },
         {
           test: /\.(graphql|gql)$/,

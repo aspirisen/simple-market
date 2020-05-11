@@ -5,6 +5,7 @@ export type LoadDataQueryVariables = {};
 
 export type LoadDataQuery = { __typename?: "Query" } & {
   currentUser: { __typename?: "User" } & Pick<Types.User, "name">;
+  cart: { __typename?: "Cart" } & Pick<Types.Cart, "id" | "totalCount">;
 };
 
 export const LoadData: import("graphql").DocumentNode;

@@ -1,0 +1,20 @@
+fragment CartUpdated on Cart {
+  id
+  totalCount
+  totalPrice
+  products {
+    id
+  }
+}
+
+mutation AddToCart($productId: String!) {
+  addToCart(productId: $productId) {
+    ...CartUpdated
+  }
+}
+
+mutation RemoveFromCart($productId: String!) {
+  removeFromCart(productId: $productId) {
+    ...CartUpdated
+  }
+}

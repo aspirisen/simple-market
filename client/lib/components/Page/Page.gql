@@ -1,5 +1,9 @@
 query LoadData {
-    currentUser {
-        name
-    }
+  currentUser {
+    name
+  }
+  cart {
+    id
+    totalCount
+  }
 }
