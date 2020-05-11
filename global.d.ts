@@ -5,3 +5,7 @@ declare module "*./public/ssr" {
 declare module "*./public/index.html" {
   export default "" as string;
 }
+
+interface Window {
+  APOLLO_STATE: import("apollo-boost").NormalizedCacheObject;
+}

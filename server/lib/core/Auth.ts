@@ -63,10 +63,10 @@ export class Auth {
     this.exp.all<NewUser & Record<string, string>>(
       "/signup",
       async (req, res, next) => {
-        if (req.params.email && req.params.name && req.params.password) {
+        if (req.body.email && req.body.name && req.body.password) {
           const userController = new UsersController();
-          userController.addUser(req.params);
-          res.redirect(req.session?.returnTo || "/");
+          await userController.addUser(req.body);
+          res.redirect("/login");
         } else {
           serverSideRendering(req, res, next);
         }

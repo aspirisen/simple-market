@@ -117,6 +117,9 @@ export function createConfig(options: ClientWebpackOptions = {}) {
       new HtmlWebpackPlugin({
         template,
         title: "Simple Market",
+        meta: {
+          viewport: "width=device-width, initial-scale=1",
+        },
         appMountId: "app",
         minify: true,
         inject: true,

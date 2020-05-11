@@ -23,7 +23,7 @@ export async function createLayout(
     const sheet = new ServerStyleSheet();
 
     const AppWithStyles = sheet.collectStyles(
-      React.createElement(Application, { location })
+      React.createElement(Application, { client, location, ssr: true })
     );
 
     const content = await renderToStringWithData(AppWithStyles);
