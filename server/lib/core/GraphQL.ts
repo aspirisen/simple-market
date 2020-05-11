@@ -6,6 +6,9 @@ import { buildSchema } from "type-graphql";
 import { GraphQLSchema } from "graphql";
 import * as controllers from "../controllers";
 
+export interface Context {
+  user: Express.User;
+}
 export class GraphQL {
   private schema!: GraphQLSchema;
 
@@ -26,6 +29,14 @@ export class GraphQL {
       schema: this.schema,
       tracing: true,
       introspection: true,
+      context: (data) => {
+        if (!data.req.user) {
+          throw new Error("User not defined in request");
+        }
+
+        const context: Context = { user: data.req.user };
+        return context;
+      },
       playground: {
         settings: {
           "request.credentials": "include",

@@ -29,6 +29,7 @@ enum ProductKind {
 
 type Query {
   products: [Product!]!
+  currentUser: User!
   users: [User!]!
 }
 

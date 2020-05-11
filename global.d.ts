@@ -9,3 +9,7 @@ declare module "*./public/index.html" {
 interface Window {
   APOLLO_STATE: import("apollo-boost").NormalizedCacheObject;
 }
+
+declare namespace Express {
+  export type User = import("server/models/User").User;
+}

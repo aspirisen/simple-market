@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { createHttpLink } from "apollo-link-http";
 import { createGlobalStyle } from "styled-components";
-import { Routes } from "./Routes";
+import { Routes } from "client/routes/Routes";
 
 export interface ApplicationProps {
   client: ApolloClient<unknown>;

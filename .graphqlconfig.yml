@@ -1,0 +1,4 @@
+projects:
+  client:
+    schemaPath: ./schema.graphql
+    includes: ["./client/**/*.gql"]
