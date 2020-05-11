@@ -14,9 +14,11 @@ input NewUser {
 }
 
 type Product {
+  id: ID!
   name: String!
   price: Float!
   kind: ProductKind!
+  imageUrl: String!
 }
 
 """Kinds of products"""

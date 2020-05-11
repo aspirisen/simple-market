@@ -1,7 +1,6 @@
 import express from "express";
 import { Container } from "typedi";
 import { ApolloServer } from "apollo-server-express";
-import { SchemaLink } from "apollo-link-schema";
 import { buildSchema } from "type-graphql";
 import { GraphQLSchema } from "graphql";
 import * as controllers from "../controllers";
@@ -10,9 +9,7 @@ export interface Context {
   user: Express.User;
 }
 export class GraphQL {
-  private schema!: GraphQLSchema;
-
-  public schemaLink!: SchemaLink;
+  public schema!: GraphQLSchema;
 
   constructor(private exp: express.Express) {}
 
@@ -22,8 +19,6 @@ export class GraphQL {
       emitSchemaFile: "schema.graphql",
       container: Container,
     });
-
-    this.schemaLink = new SchemaLink({ schema: this.schema });
 
     const server = new ApolloServer({
       schema: this.schema,

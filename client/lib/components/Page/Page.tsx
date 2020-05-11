@@ -50,7 +50,7 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
       </Menu>
 
       <Segment basic>
-        <Dimmer active={props.isLoading}>
+        <Dimmer active={props.isLoading && !loading}>
           <Loader />
         </Dimmer>
 

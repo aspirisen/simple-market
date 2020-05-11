@@ -4,7 +4,9 @@ import importFresh from "import-fresh";
 import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
+import { SchemaLink } from "apollo-link-schema";
 import { Application } from "server/core/Application";
+import { Context } from "server/core/GraphQL";
 import { createConfig } from "../webpack.client.config";
 
 (async () => {
@@ -43,13 +45,12 @@ import { createConfig } from "../webpack.client.config";
       .readFileSync(path.resolve(__dirname, "./public/index.html"))
       .toString();
 
-    const ssr = importFresh("./public/ssr") as typeof import("./public/ssr");
+    const context: Context = { user: req.user! };
 
-    const layout = await ssr.createLayout(
-      req.url,
-      html,
-      app.graphql.schemaLink
-    );
+    const ssr = importFresh("./public/ssr") as typeof import("./public/ssr");
+    const schemaLink = new SchemaLink({ schema: app.graphql.schema, context });
+
+    const layout = await ssr.createLayout(req.url, html, schemaLink);
 
     res.status(200);
     res.end(layout);

@@ -27,9 +27,11 @@ export type NewUser = {
 
 export type Product = {
   __typename?: "Product";
+  id: Scalars["ID"];
   name: Scalars["String"];
   price: Scalars["Float"];
   kind: ProductKind;
+  imageUrl: Scalars["String"];
 };
 
 /** Kinds of products */

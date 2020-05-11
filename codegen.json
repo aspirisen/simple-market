@@ -1,7 +1,6 @@
 {
   "overwrite": true,
   "schema": "./schema.graphql",
-  "documents": "./client/**/*.gql",
   "generates": {
     "./client/typings/api.ts": {
       "plugins": [
@@ -18,6 +17,7 @@
       }
     },
     "./client": {
+      "documents": "./client/**/*.gql",
       "preset": "near-operation-file",
       "presetConfig": {
         "baseTypesPath": "./client/typings/api.ts",

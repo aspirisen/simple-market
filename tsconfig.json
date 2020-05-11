@@ -6,6 +6,9 @@
       "ssr": [
         "client/ssr"
       ],
+      "api-types": [
+        "client/typings/api"
+      ],
       "client/*": [
         "client/lib/*"
       ],
