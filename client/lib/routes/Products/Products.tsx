@@ -1,18 +1,18 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Card } from "semantic-ui-react";
 import { Page } from "client/components/Page";
-import { Product } from "client/components/Product";
+import { ProductsList } from "client/components/Product";
 import {
-  LoadData,
-  LoadDataQuery,
-  LoadDataQueryVariables,
+  LoadProductsData,
+  LoadProductsDataQuery,
+  LoadProductsDataQueryVariables,
 } from "./Products.gql";
 
 export const Products = () => {
-  const { data, loading } = useQuery<LoadDataQuery, LoadDataQueryVariables>(
-    LoadData
-  );
+  const { data, loading } = useQuery<
+    LoadProductsDataQuery,
+    LoadProductsDataQueryVariables
+  >(LoadProductsData);
 
   const inCartQuantityMap = React.useMemo(() => {
     const result: Record<string, number> = {};
@@ -26,15 +26,7 @@ export const Products = () => {
 
   return (
     <Page isLoading={loading}>
-      <Card.Group stackable>
-        {data?.products.map((p) => (
-          <Product
-            key={p.id}
-            product={p}
-            inCartQuantity={inCartQuantityMap[p.id]}
-          />
-        ))}
-      </Card.Group>
+      <ProductsList products={data?.products} quantityMap={inCartQuantityMap} />
     </Page>
   );
 };

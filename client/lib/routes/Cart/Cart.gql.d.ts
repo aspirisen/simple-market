@@ -24,6 +24,7 @@ export type ConfirmCartMutationVariables = {
 };
 
 export type ConfirmCartMutation = { __typename?: "Mutation" } & {
+  confirmCart: { __typename?: "Order" } & Pick<Types.Order, "id">;
   clearCart: { __typename?: "Cart" } & Pick<
     Types.Cart,
     "id" | "totalCount" | "totalPrice"
@@ -34,7 +35,6 @@ export type ConfirmCartMutation = { __typename?: "Mutation" } & {
         }
       >;
     };
-  confirmCart: { __typename?: "Order" } & Pick<Types.Order, "id">;
 };
 
 export const LoadCart: import("graphql").DocumentNode;

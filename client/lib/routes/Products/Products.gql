@@ -1,4 +1,4 @@
-query LoadData {
+query LoadProductsData {
   products {
     id
     name
@@ -8,6 +8,7 @@ query LoadData {
     specialOffer
   }
   cart {
+    id
     items {
       quantity
       product {

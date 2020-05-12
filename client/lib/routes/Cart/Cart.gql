@@ -17,6 +17,9 @@ query LoadCart {
 }
 
 mutation ConfirmCart($data: ConfirmCart!) {
+  confirmCart(data: $data) {
+    id
+  }
   clearCart {
     id
     totalCount
@@ -26,8 +29,5 @@ mutation ConfirmCart($data: ConfirmCart!) {
         id
       }
     }
-  }
-  confirmCart(data: $data) {
-    id
   }
 }

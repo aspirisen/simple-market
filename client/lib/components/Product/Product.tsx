@@ -13,6 +13,7 @@ import { Incremental } from "../Incremental";
 export interface ProductProps {
   product: t.Product;
   inCartQuantity?: number;
+  readonly?: boolean;
 }
 
 export const Product = (props: ProductProps) => {
@@ -36,32 +37,42 @@ export const Product = (props: ProductProps) => {
           {props.product.price}
           <span>$</span>
         </Card.Description>
-      </Card.Content>
-      <Actions extra>
-        {props.inCartQuantity === undefined || props.inCartQuantity === 0 ? (
-          <Button
-            basic
-            color="green"
-            fluid
-            onClick={() =>
-              changeItemsQuantity({
-                variables: { productId: props.product.id, quantity: 1 },
-              })
-            }
-          >
-            Add to cart
-          </Button>
-        ) : (
-          <Incremental
-            onChange={(quantity) =>
-              changeItemsQuantity({
-                variables: { productId: props.product.id, quantity },
-              })
-            }
-            value={props.inCartQuantity}
-          />
+
+        {props.readonly && (
+          <Card.Description>
+            <strong>Quantity: </strong>
+            {props.inCartQuantity}
+          </Card.Description>
         )}
-      </Actions>
+      </Card.Content>
+
+      {!props.readonly && (
+        <Actions extra>
+          {props.inCartQuantity === undefined || props.inCartQuantity === 0 ? (
+            <Button
+              basic
+              color="green"
+              fluid
+              onClick={() =>
+                changeItemsQuantity({
+                  variables: { productId: props.product.id, quantity: 1 },
+                })
+              }
+            >
+              Add to cart
+            </Button>
+          ) : (
+            <Incremental
+              onChange={(quantity) =>
+                changeItemsQuantity({
+                  variables: { productId: props.product.id, quantity },
+                })
+              }
+              value={props.inCartQuantity}
+            />
+          )}
+        </Actions>
+      )}
     </Card>
   );
 };

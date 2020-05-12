@@ -24,6 +24,19 @@ export class CartController {
     return result;
   }
 
+  @Query(() => [Order])
+  async orders(@Ctx() ctx: Context) {
+    const result = await OrderModel.find({ user: ctx.user })
+      .populate([
+        {
+          path: "user",
+        },
+      ])
+      .exec();
+
+    return result;
+  }
+
   @Mutation(() => Cart)
   async changeItemsQuantity(
     @Arg("productId", () => String) productId: Types.ObjectId,
@@ -68,11 +81,14 @@ export class CartController {
 
   @Mutation(() => Order)
   async confirmCart(@Arg("data") data: ConfirmCart, @Ctx() ctx: Context) {
-    const cart = await this.cart(ctx);
+    const cartModel = await this.cart(ctx);
 
-    if (!cart) {
+    if (!cartModel) {
       throw new Error("Cart is not defined");
     }
+
+    const cartJson: typeof cartModel = cartModel.toObject({ virtuals: true });
+    const cart = new Cart({ items: cartJson.items, user: cartJson.user });
 
     const order = new Order({
       address: data.address,

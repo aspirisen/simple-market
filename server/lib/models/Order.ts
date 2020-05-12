@@ -3,6 +3,7 @@ import { prop, getModelForClass, Ref, arrayProp } from "@typegoose/typegoose";
 import { BaseModel } from "server/core/BaseModel";
 import { User } from "./User";
 import { Item } from "./Item";
+import { OrderItem } from "./OrderItem";
 
 @ObjectType()
 export class Order extends BaseModel<Order> {
@@ -14,7 +15,7 @@ export class Order extends BaseModel<Order> {
   public user!: Ref<User>;
 
   @Field(() => [Item])
-  @arrayProp({ items: Item })
+  @arrayProp({ items: OrderItem })
   public items!: Item[];
 
   @Field()

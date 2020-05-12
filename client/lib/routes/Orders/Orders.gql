@@ -1,0 +1,20 @@
+query LoadOrders {
+  orders {
+    id
+    totalCount
+    totalPrice
+    address
+    deliveryDate
+    items {
+      quantity
+      product {
+        id
+        name
+        price
+        kind
+        imageUrl
+        specialOffer
+      }
+    }
+  }
+}

@@ -68,6 +68,7 @@ enum ProductKind {
 
 type Query {
   cart: Cart!
+  orders: [Order!]!
   products: [Product!]!
   currentUser: User!
   users: [User!]!

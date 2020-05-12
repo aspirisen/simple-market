@@ -86,6 +86,7 @@ export type ProductKind = "SOUP" | "BREAD" | "MILK" | "APPLE";
 export type Query = {
   __typename?: "Query";
   cart: Cart;
+  orders: Array<Order>;
   products: Array<Product>;
   currentUser: User;
   users: Array<User>;

@@ -11,22 +11,30 @@ import {
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
-import { LoadData, LoadDataQuery, LoadDataQueryVariables } from "./Page.gql";
+import {
+  LoadPageData,
+  LoadPageDataQuery,
+  LoadPageDataQueryVariables,
+} from "./Page.gql";
 
 export interface PageProps {
   isLoading: boolean;
 }
 
 export function Page(props: React.PropsWithChildren<PageProps>) {
-  const { data, loading } = useQuery<LoadDataQuery, LoadDataQueryVariables>(
-    LoadData
-  );
+  const { data, loading } = useQuery<
+    LoadPageDataQuery,
+    LoadPageDataQueryVariables
+  >(LoadPageData);
 
   return (
     <>
       <Menu stackable>
-        <Dropdown item icon="user" text={`Hello, ${data?.currentUser.name}`}>
+        <Dropdown item text={`Hello, ${data?.currentUser.name}`}>
           <Dropdown.Menu>
+            <Dropdown.Item as={NavLink} to="/orders">
+              Orders
+            </Dropdown.Item>
             <Dropdown.Item as="a" href="/logout">
               Logout
             </Dropdown.Item>

@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { Segment, Card, Form, Button, Header, Icon } from "semantic-ui-react";
+import { Segment, Form, Button, Header, Icon } from "semantic-ui-react";
 import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import { Page } from "client/components/Page";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { Product } from "client/components/Product";
+import { ProductsList, ProductsListProps } from "client/components/Product";
 import {
   LoadCart,
   LoadCartQuery,
@@ -27,8 +27,6 @@ export const Cart = () => {
   const [deliveryDate, setDeliveryDate] = React.useState<Date | null>(null);
   const [address, setAddress] = React.useState("");
 
-  const isFormDisabled = !deliveryDate || !address;
-
   const onSubmit = React.useCallback(() => {
     if (!deliveryDate || !address) {
       return;
@@ -41,20 +39,33 @@ export const Cart = () => {
     });
   }, [deliveryDate, address]);
 
+  const list = React.useMemo(() => {
+    if (!data || data.cart.totalCount === 0) {
+      return null;
+    }
+
+    const inCartQuantityMap: ProductsListProps["quantityMap"] = {};
+    const products: ProductsListProps["products"] = [];
+
+    data.cart.items.forEach((i) => {
+      inCartQuantityMap[i.product.id] = i.quantity;
+      products.push(i.product);
+    });
+
+    return { products, inCartQuantityMap };
+  }, [data]);
+
+  const isFormDisabled = !deliveryDate || !address;
+
   return (
     <Page isLoading={loading}>
       <Segment.Group horizontal>
         <Segment placeholder>
-          {data?.cart.items.length ? (
-            <Card.Group stackable>
-              {data.cart.items.map((i) => (
-                <Product
-                  key={i.product.id}
-                  product={i.product}
-                  inCartQuantity={i.quantity}
-                />
-              ))}
-            </Card.Group>
+          {list ? (
+            <ProductsList
+              quantityMap={list.inCartQuantityMap}
+              products={list.products}
+            />
           ) : (
             <Header icon>
               <Icon name="file pdf outline" />

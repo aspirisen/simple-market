@@ -1,4 +1,4 @@
-query LoadData {
+query LoadPageData {
   currentUser {
     name
   }
