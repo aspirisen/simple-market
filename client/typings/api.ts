@@ -8,29 +8,34 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: string;
 };
 
 export type Cart = {
   __typename?: "Cart";
   id: Scalars["ID"];
   user: User;
-  products: Array<Product>;
+  items: Array<Item>;
+  deliveryDate?: Maybe<Scalars["DateTime"]>;
   totalCount: Scalars["Float"];
   totalPrice: Scalars["Float"];
 };
 
+export type Item = {
+  __typename?: "Item";
+  product: Product;
+  quantity: Scalars["Float"];
+};
+
 export type Mutation = {
   __typename?: "Mutation";
-  addToCart: Cart;
-  removeFromCart: Cart;
+  changeItemsQuantity: Cart;
   addUser: User;
 };
 
-export type MutationAddToCartArgs = {
-  productId: Scalars["String"];
-};
-
-export type MutationRemoveFromCartArgs = {
+export type MutationChangeItemsQuantityArgs = {
+  quantity: Scalars["Float"];
   productId: Scalars["String"];
 };
 

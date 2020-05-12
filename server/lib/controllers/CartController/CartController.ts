@@ -2,40 +2,52 @@ import { Types } from "mongoose";
 import { Resolver, Query, Ctx, Mutation, Arg } from "type-graphql";
 import { Context } from "server/core/GraphQL";
 import { Cart, CartModel } from "server/models/Cart";
+import { Item } from "server/models/Item";
 
 @Resolver(Cart)
 export class CartController {
   @Query(() => Cart)
   async cart(@Ctx() ctx: Context) {
     const result = await CartModel.findOne({ user: ctx.user })
-      .populate([{ path: "user" }, { path: "products" }])
+      .populate([
+        {
+          path: "user",
+        },
+        {
+          path: "items.product",
+        },
+      ])
       .exec();
 
     return result;
   }
 
   @Mutation(() => Cart)
-  async addToCart(
+  async changeItemsQuantity(
     @Arg("productId", () => String) productId: Types.ObjectId,
+    @Arg("quantity", () => Number) quantity: number,
     @Ctx() ctx: Context
   ) {
-    await CartModel.updateOne(
-      { user: ctx.user },
-      { $push: { products: productId } }
-    );
+    if (quantity < 1) {
+      await CartModel.updateOne(
+        { user: ctx.user },
+        { $pull: { items: { product: productId } } }
+      ).exec();
+    } else {
+      await CartModel.updateOne(
+        { user: ctx.user },
+        {
+          $pull: { items: { product: productId } },
+        }
+      ).exec();
 
-    return this.cart(ctx);
-  }
-
-  @Mutation(() => Cart)
-  async removeFromCart(
-    @Arg("productId", () => String) productId: Types.ObjectId,
-    @Ctx() ctx: Context
-  ) {
-    await CartModel.updateOne(
-      { user: ctx.user },
-      { $pull: { products: productId } }
-    );
+      await CartModel.updateOne(
+        { user: ctx.user },
+        {
+          $push: { items: new Item({ product: productId, quantity }) },
+        }
+      ).exec();
+    }
 
     return this.cart(ctx);
   }

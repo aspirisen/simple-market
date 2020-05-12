@@ -14,16 +14,25 @@ export const Products = () => {
     LoadData
   );
 
-  const alreadyInCart = React.useMemo(
-    () => new Set(data?.cart.products.map((v) => v.id)),
-    [data]
-  );
+  const inCartQuantityMap = React.useMemo(() => {
+    const result: Record<string, number> = {};
+
+    data?.cart.items.forEach((i) => {
+      result[i.product.id] = i.quantity;
+    });
+
+    return result;
+  }, [data]);
 
   return (
     <Page isLoading={loading}>
       <Card.Group stackable>
         {data?.products.map((p) => (
-          <Product key={p.id} product={p} isInCart={alreadyInCart.has(p.id)} />
+          <Product
+            key={p.id}
+            product={p}
+            inCartQuantity={inCartQuantityMap[p.id]}
+          />
         ))}
       </Card.Group>
     </Page>

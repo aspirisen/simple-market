@@ -29,7 +29,6 @@ import { createConfig } from "../webpack.client.config";
   });
 
   const hotMiddleware = webpackHotMiddleware(compiler);
-  await new Promise((resolve) => middleware.waitUntilValid(resolve));
 
   app.exp.use(middleware);
   app.exp.use(hotMiddleware);

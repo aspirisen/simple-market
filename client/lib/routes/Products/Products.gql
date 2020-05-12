@@ -7,8 +7,13 @@ query LoadData {
     imageUrl
   }
   cart {
-    products {
-      id
+    items {
+      quantity
+      product {
+        id
+      }
     }
+    totalCount
+    totalPrice
   }
 }

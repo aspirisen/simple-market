@@ -1,20 +1,13 @@
-fragment CartUpdated on Cart {
-  id
-  totalCount
-  totalPrice
-  products {
+mutation ChangeItemsQuantity($productId: String!, $quantity: Float!) {
+  changeItemsQuantity(productId: $productId, quantity: $quantity) {
     id
-  }
-}
-
-mutation AddToCart($productId: String!) {
-  addToCart(productId: $productId) {
-    ...CartUpdated
-  }
-}
-
-mutation RemoveFromCart($productId: String!) {
-  removeFromCart(productId: $productId) {
-    ...CartUpdated
+    items {
+      product {
+        id
+      }
+      quantity
+    }
+    totalCount
+    totalPrice
   }
 }

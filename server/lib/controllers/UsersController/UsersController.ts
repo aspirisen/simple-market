@@ -22,7 +22,12 @@ export class UsersController {
     const user = new User(data);
     const userModel = await UserModel.create(user);
 
-    const cart = new Cart({ products: [], user: userModel });
+    const cart = new Cart({
+      items: [],
+      user: userModel,
+      deliveryDate: undefined,
+    });
+
     await CartModel.create(cart);
 
     return userModel;

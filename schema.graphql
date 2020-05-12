@@ -6,14 +6,24 @@
 type Cart {
   id: ID!
   user: User!
-  products: [Product!]!
+  items: [Item!]!
+  deliveryDate: DateTime
   totalCount: Float!
   totalPrice: Float!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+type Item {
+  product: Product!
+  quantity: Float!
+}
+
 type Mutation {
-  addToCart(productId: String!): Cart!
-  removeFromCart(productId: String!): Cart!
+  changeItemsQuantity(quantity: Float!, productId: String!): Cart!
   addUser(data: NewUser!): User!
 }
 

@@ -10,6 +10,7 @@ import {
   Label,
 } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
 import { LoadData, LoadDataQuery, LoadDataQueryVariables } from "./Page.gql";
 
@@ -37,7 +38,10 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
           <Icon name="cart" />
           <span> </span>
           Cart
-          <Label color="teal">{data?.cart.totalCount}</Label>
+          <PriceLabel color="teal" $visible={Boolean(data?.cart.totalPrice)}>
+            {data?.cart.totalPrice}
+            <span>$</span>
+          </PriceLabel>
         </Menu.Item>
 
         <Menu.Item position="right">
@@ -65,3 +69,7 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
     </>
   );
 }
+
+const PriceLabel = styled(Label)<{ $visible: boolean }>`
+  visibility: ${(props) => (props.$visible ? "visible" : "hidden")};
+`;

@@ -4,6 +4,6 @@ query LoadData {
   }
   cart {
     id
-    totalCount
+    totalPrice
   }
 }

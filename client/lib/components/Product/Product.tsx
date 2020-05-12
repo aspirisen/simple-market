@@ -3,29 +3,22 @@ import * as t from "api-types";
 import { Button, Card, Image } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import {
-  AddToCart,
-  AddToCartMutation,
-  AddToCartMutationVariables,
-  RemoveFromCart,
-  RemoveFromCartMutation,
-  RemoveFromCartMutationVariables,
+  ChangeItemsQuantity,
+  ChangeItemsQuantityMutation,
+  ChangeItemsQuantityMutationVariables,
 } from "./Product.gql";
+import { Incremental } from "../Incremental";
 
 export interface ProductProps {
   product: t.Product;
-  isInCart: boolean;
+  inCartQuantity?: number;
 }
 
 export const Product = (props: ProductProps) => {
-  const [addToCart] = useMutation<
-    AddToCartMutation,
-    AddToCartMutationVariables
-  >(AddToCart);
-
-  const [removeFromCart] = useMutation<
-    RemoveFromCartMutation,
-    RemoveFromCartMutationVariables
-  >(RemoveFromCart);
+  const [changeItemsQuantity] = useMutation<
+    ChangeItemsQuantityMutation,
+    ChangeItemsQuantityMutationVariables
+  >(ChangeItemsQuantity);
 
   return (
     <Card>
@@ -41,28 +34,28 @@ export const Product = (props: ProductProps) => {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        {props.isInCart ? (
-          <Button
-            basic
-            color="red"
-            fluid
-            onClick={() =>
-              removeFromCart({ variables: { productId: props.product.id } })
-            }
-          >
-            Remove from cart
-          </Button>
-        ) : (
+        {props.inCartQuantity === undefined || props.inCartQuantity === 0 ? (
           <Button
             basic
             color="green"
             fluid
             onClick={() =>
-              addToCart({ variables: { productId: props.product.id } })
+              changeItemsQuantity({
+                variables: { productId: props.product.id, quantity: 1 },
+              })
             }
           >
             Add to cart
           </Button>
+        ) : (
+          <Incremental
+            onChange={(quantity) =>
+              changeItemsQuantity({
+                variables: { productId: props.product.id, quantity },
+              })
+            }
+            value={props.inCartQuantity}
+          />
         )}
       </Card.Content>
     </Card>
