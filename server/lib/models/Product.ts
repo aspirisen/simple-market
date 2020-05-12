@@ -23,6 +23,18 @@ export class Product extends BaseModel<Product> {
   @Field()
   @prop()
   public imageUrl!: string;
+
+  @Field(() => String, { nullable: true })
+  specialOffer() {
+    switch (this.kind) {
+      case "APPLE":
+        return "Apples have 10% off their normal price this week";
+      case "BREAD":
+        return "Buy 2 tins of soup and get a loaf of bread for half price";
+      default:
+        return null;
+    }
+  }
 }
 
 export const ProductModel = getModelForClass(Product, {

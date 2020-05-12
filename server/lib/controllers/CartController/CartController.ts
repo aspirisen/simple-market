@@ -3,6 +3,8 @@ import { Resolver, Query, Ctx, Mutation, Arg } from "type-graphql";
 import { Context } from "server/core/GraphQL";
 import { Cart, CartModel } from "server/models/Cart";
 import { Item } from "server/models/Item";
+import { Order, OrderModel } from "server/models/Order";
+import { ConfirmCart } from "./inputs/ConfirmCart";
 
 @Resolver(Cart)
 export class CartController {
@@ -50,5 +52,39 @@ export class CartController {
     }
 
     return this.cart(ctx);
+  }
+
+  @Mutation(() => Cart)
+  async clearCart(@Ctx() ctx: Context) {
+    await CartModel.updateOne(
+      { user: ctx.user },
+      {
+        $set: { items: [] },
+      }
+    ).exec();
+
+    return this.cart(ctx);
+  }
+
+  @Mutation(() => Order)
+  async confirmCart(@Arg("data") data: ConfirmCart, @Ctx() ctx: Context) {
+    const cart = await this.cart(ctx);
+
+    if (!cart) {
+      throw new Error("Cart is not defined");
+    }
+
+    const order = new Order({
+      address: data.address,
+      deliveryDate: data.deliveryDate,
+      items: cart.items,
+      user: cart.user,
+      totalCount: cart.totalCount(),
+      totalPrice: cart.totalPrice(),
+    });
+
+    const orderSaved = await OrderModel.create(order);
+
+    return orderSaved;
   }
 }

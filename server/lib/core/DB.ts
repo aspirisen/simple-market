@@ -27,33 +27,33 @@ export class DB {
     }
 
     const soup = new Product({
-      name: "Soup",
+      name: "Goroh",
       kind: "SOUP",
       price: 0.65,
-      imageUrl:
-        "https://www.dailyherald.com/storyimage/DA/20171227/ENTLIFE/171229429/AR/0/AR-171229429.jpg&amp;updated=201712260926&amp;imageversion=Facebook&amp;exactH=630&amp;exactW=1200&amp;exactfit=crop&amp;noborder",
+      imageUrl: "https://lmm.in.ua/photo_opisanie/6685/1558965119-3561.jpeg",
     });
 
     const bread = new Product({
-      name: "Bread",
+      name: "Borodino",
       kind: "BREAD",
       price: 0.8,
       imageUrl:
-        "https://avatars.mds.yandex.net/get-pdb/2058232/0eaaa8bd-b5f1-4132-b1f6-2d66d52996fb/s1200?webp=false",
+        "https://bolshoi67.ru/upload/iblock/f11/f11251d10ef39077fb88a9b44e728726.jpeg",
     });
     const milk = new Product({
-      name: "Milk",
+      name: "Amka",
       kind: "MILK",
       price: 1.3,
       imageUrl:
-        "https://avatars.mds.yandex.net/get-pdb/1551693/694aec39-902a-40d3-9ab3-7a74822bb438/s1200?webp=false",
+        "https://cdntwo.abloomnova.net/wp-content/uploads/2017/01/calcium-in-milk-abloomnova.net_.jpg",
     });
 
     const apple = new Product({
-      name: "Apple",
+      name: "Antonovka",
       kind: "APPLE",
       price: 1,
-      imageUrl: "https://99px.ru/sstorage/53/2016/09/tmb_177842_9478.jpg",
+      imageUrl:
+        "https://edinstvennaya.ua/storage/shares/uploads/files/yabloki-frukty-narezannye.jpg",
     });
 
     await ProductModel.create(soup, bread, milk, apple);

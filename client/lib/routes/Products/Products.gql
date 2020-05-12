@@ -5,6 +5,7 @@ query LoadData {
     price
     kind
     imageUrl
+    specialOffer
   }
   cart {
     items {

@@ -17,9 +17,13 @@ export type Cart = {
   id: Scalars["ID"];
   user: User;
   items: Array<Item>;
-  deliveryDate?: Maybe<Scalars["DateTime"]>;
   totalCount: Scalars["Float"];
   totalPrice: Scalars["Float"];
+};
+
+export type ConfirmCart = {
+  deliveryDate: Scalars["DateTime"];
+  address: Scalars["String"];
 };
 
 export type Item = {
@@ -31,12 +35,18 @@ export type Item = {
 export type Mutation = {
   __typename?: "Mutation";
   changeItemsQuantity: Cart;
+  clearCart: Cart;
+  confirmCart: Order;
   addUser: User;
 };
 
 export type MutationChangeItemsQuantityArgs = {
   quantity: Scalars["Float"];
   productId: Scalars["String"];
+};
+
+export type MutationConfirmCartArgs = {
+  data: ConfirmCart;
 };
 
 export type MutationAddUserArgs = {
@@ -49,6 +59,17 @@ export type NewUser = {
   password: Scalars["String"];
 };
 
+export type Order = {
+  __typename?: "Order";
+  id: Scalars["ID"];
+  user: User;
+  items: Array<Item>;
+  totalCount: Scalars["Float"];
+  totalPrice: Scalars["Float"];
+  address: Scalars["String"];
+  deliveryDate: Scalars["DateTime"];
+};
+
 export type Product = {
   __typename?: "Product";
   id: Scalars["ID"];
@@ -56,6 +77,7 @@ export type Product = {
   price: Scalars["Float"];
   kind: ProductKind;
   imageUrl: Scalars["String"];
+  specialOffer?: Maybe<Scalars["String"]>;
 };
 
 /** Kinds of products */

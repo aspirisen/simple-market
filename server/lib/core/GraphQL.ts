@@ -1,5 +1,5 @@
 import express from "express";
-import { Document } from "mongoose";
+import { Model } from "mongoose";
 import { Container } from "typedi";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema, MiddlewareFn } from "type-graphql";
@@ -50,8 +50,16 @@ export class GraphQL {
     const fromResolver = await next();
     let result = fromResolver;
 
-    if (fromResolver instanceof Document) {
+    if (fromResolver instanceof Model) {
       result = fromResolver.toObject({ virtuals: true });
+    } else if (Array.isArray(fromResolver)) {
+      result = fromResolver.map((d) => {
+        if (d instanceof Model) {
+          return d.toObject({ virtuals: true });
+        }
+
+        return d;
+      });
     }
 
     return result;

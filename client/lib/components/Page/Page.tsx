@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Input,
   Menu,
   Icon,
   Dropdown,
@@ -25,7 +24,7 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
 
   return (
     <>
-      <Menu>
+      <Menu stackable>
         <Dropdown item icon="user" text={`Hello, ${data?.currentUser.name}`}>
           <Dropdown.Menu>
             <Dropdown.Item as="a" href="/logout">
@@ -33,6 +32,12 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+
+        <Menu.Item as={NavLink} to="/products">
+          <Icon name="unordered list" />
+          <span> </span>
+          Products
+        </Menu.Item>
 
         <Menu.Item as={NavLink} to="/cart">
           <Icon name="cart" />
@@ -42,16 +47,6 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
             {data?.cart.totalPrice}
             <span>$</span>
           </PriceLabel>
-        </Menu.Item>
-
-        <Menu.Item position="right">
-          <Input
-            className="icon"
-            icon="search"
-            iconPosition="left"
-            placeholder="Search..."
-            transparent
-          />
         </Menu.Item>
       </Menu>
 

@@ -7,9 +7,13 @@ type Cart {
   id: ID!
   user: User!
   items: [Item!]!
-  deliveryDate: DateTime
   totalCount: Float!
   totalPrice: Float!
+}
+
+input ConfirmCart {
+  deliveryDate: DateTime!
+  address: String!
 }
 
 """
@@ -24,6 +28,8 @@ type Item {
 
 type Mutation {
   changeItemsQuantity(quantity: Float!, productId: String!): Cart!
+  clearCart: Cart!
+  confirmCart(data: ConfirmCart!): Order!
   addUser(data: NewUser!): User!
 }
 
@@ -33,12 +39,23 @@ input NewUser {
   password: String!
 }
 
+type Order {
+  id: ID!
+  user: User!
+  items: [Item!]!
+  totalCount: Float!
+  totalPrice: Float!
+  address: String!
+  deliveryDate: DateTime!
+}
+
 type Product {
   id: ID!
   name: String!
   price: Float!
   kind: ProductKind!
   imageUrl: String!
+  specialOffer: String
 }
 
 """Kinds of products"""

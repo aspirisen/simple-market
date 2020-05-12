@@ -20,7 +20,7 @@
       "documents": "./client/**/*.gql",
       "preset": "near-operation-file",
       "presetConfig": {
-        "baseTypesPath": "./client/typings/api.ts",
+        "baseTypesPath": "../client/typings/api.ts",
         "extension": ".gql.d.ts"
       },
       "plugins": [

@@ -1,0 +1,33 @@
+query LoadCart {
+  cart {
+    id
+    totalCount
+    totalPrice
+    items {
+      quantity
+      product {
+        id
+        name
+        price
+        kind
+        imageUrl
+      }
+    }
+  }
+}
+
+mutation ConfirmCart($data: ConfirmCart!) {
+  clearCart {
+    id
+    totalCount
+    totalPrice
+    items {
+      product {
+        id
+      }
+    }
+  }
+  confirmCart(data: $data) {
+    id
+  }
+}

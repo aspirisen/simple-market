@@ -16,7 +16,7 @@ export const Incremental = (props: IncrementalProps) => {
           onClick={() => props.onChange(props.value - 1)}
         />
 
-        <IncrementInput fluid value={props.value} readonly />
+        <IncrementInput fluid value={props.value} readOnly />
 
         <Form.Button
           icon="plus"

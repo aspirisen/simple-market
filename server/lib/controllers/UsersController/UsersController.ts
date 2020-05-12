@@ -25,7 +25,6 @@ export class UsersController {
     const cart = new Cart({
       items: [],
       user: userModel,
-      deliveryDate: undefined,
     });
 
     await CartModel.create(cart);

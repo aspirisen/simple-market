@@ -17,10 +17,6 @@ export class Cart extends BaseModel<Cart> {
   @arrayProp({ items: Item })
   public items!: Item[];
 
-  @Field({ nullable: true })
-  @prop()
-  public deliveryDate?: Date;
-
   @Field(() => Number)
   totalCount() {
     const result = this.items.reduce(
@@ -58,7 +54,7 @@ export class Cart extends BaseModel<Cart> {
 
       if ("kind" in i.product) {
         if (i.product.kind === "APPLE") {
-          next = i.quantity * (i.product.price - i.product.price * 0.1);
+          next += i.quantity * (i.product.price - i.product.price * 0.1);
         } else if (i.product.kind === "BREAD" && breadsForHalfPrice > 0) {
           const halfPriceQuantity = breadsForHalfPrice - i.quantity;
           const quantityDiscount =
@@ -66,12 +62,11 @@ export class Cart extends BaseModel<Cart> {
 
           breadsForHalfPrice -= quantityDiscount;
 
-          next =
-            a +
+          next +=
             i.quantity * i.product.price -
             quantityDiscount * (i.product.price / 2);
         } else {
-          next = a + i.quantity * i.product.price;
+          next += i.quantity * i.product.price;
         }
       }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import * as t from "api-types";
 import { Button, Card, Image } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
@@ -27,13 +28,16 @@ export const Product = (props: ProductProps) => {
       <Card.Content>
         <Card.Header>{props.product.name}</Card.Header>
         <Card.Meta>{props.product.kind}</Card.Meta>
+        {props.product.specialOffer && (
+          <Card.Meta>{props.product.specialOffer}</Card.Meta>
+        )}
         <Card.Description>
           <strong>Price: </strong>
           {props.product.price}
           <span>$</span>
         </Card.Description>
       </Card.Content>
-      <Card.Content extra>
+      <Actions extra>
         {props.inCartQuantity === undefined || props.inCartQuantity === 0 ? (
           <Button
             basic
@@ -57,7 +61,11 @@ export const Product = (props: ProductProps) => {
             value={props.inCartQuantity}
           />
         )}
-      </Card.Content>
+      </Actions>
     </Card>
   );
 };
+
+const Actions = styled(Card.Content)`
+  height: 60px;
+`;
