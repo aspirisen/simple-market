@@ -21,6 +21,14 @@ export class CartController {
       ])
       .exec();
 
+    result?.items.sort((a, b) => {
+      if ("price" in a.product && "price" in b.product) {
+        return a.product.price - b.product.price;
+      }
+
+      return 0;
+    });
+
     return result;
   }
 

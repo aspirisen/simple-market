@@ -59,7 +59,7 @@ export const Cart = () => {
 
   return (
     <Page isLoading={loading}>
-      <Segment.Group horizontal>
+      <Segment.Group>
         <Segment placeholder>
           {list ? (
             <ProductsList
@@ -80,14 +80,13 @@ export const Cart = () => {
               <Form.Field>
                 <label>Delivery date</label>
                 <DeliveryDate
-                  value={deliveryDate?.toUTCString()}
+                  selected={deliveryDate}
                   onChange={setDeliveryDate}
                   showTimeSelect
-                  timeFormat="HH:mm"
                   timeIntervals={15}
                   timeCaption="time"
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  locale="en-GB"
+                  dateFormat="d MMMM, yyyy, HH:mm"
+                  timeFormat="HH:mm"
                 />
               </Form.Field>
               <Form.Field>

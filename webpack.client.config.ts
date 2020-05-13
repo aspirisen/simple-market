@@ -115,8 +115,8 @@ export function createConfig(options: ClientWebpackOptions = {}) {
     plugins: [
       new CleanWebpackPlugin({}),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css",
+        filename: "[name].[hash].css",
+        chunkFilename: "[name].[hash].[id].css",
         ignoreOrder: false,
       }),
       new HtmlWebpackPlugin({
