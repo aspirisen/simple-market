@@ -3,6 +3,7 @@ import styled from "styled-components";
 import * as t from "api-types";
 import { Button, Card, Image } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
+import { loc } from "client/utils/loc";
 import {
   ChangeItemsQuantity,
   ChangeItemsQuantityMutation,
@@ -23,18 +24,22 @@ export const Product = (props: ProductProps) => {
   >(ChangeItemsQuantity);
 
   return (
-    <Card>
+    <Card data-testid={loc.components.product.container}>
       <Image src={props.product.imageUrl} />
 
       <Card.Content>
         <Card.Header>{props.product.name}</Card.Header>
-        <Card.Meta>{props.product.kind}</Card.Meta>
+        <Card.Meta data-testid={loc.components.product.kind}>
+          {props.product.kind}
+        </Card.Meta>
         {props.product.specialOffer && (
           <Card.Meta>{props.product.specialOffer}</Card.Meta>
         )}
         <Card.Description>
           <strong>Price: </strong>
-          {props.product.price}
+          <span data-testid={loc.components.product.price}>
+            {props.product.price}
+          </span>
           <span>$</span>
         </Card.Description>
 
@@ -53,6 +58,7 @@ export const Product = (props: ProductProps) => {
               basic
               color="green"
               fluid
+              data-testid={loc.components.product.addToCart}
               onClick={() =>
                 changeItemsQuantity({
                   variables: { productId: props.product.id, quantity: 1 },

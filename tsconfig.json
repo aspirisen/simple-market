@@ -17,6 +17,7 @@
       ],
     },
     "types": [
+      "cypress",
       "./global"
     ],
     "target": "es2016",

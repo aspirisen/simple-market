@@ -43,6 +43,7 @@
         "no-unused-expressions": "off",
         "no-unused-vars": "off",
         "no-use-before-define": "off",
+        "no-undef": "off",
         "no-useless-constructor": "off",
         "prettier/prettier": "error",
         "react/destructuring-assignment": "off",

@@ -11,6 +11,7 @@ import {
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
+import { loc } from "client/utils/loc";
 import {
   LoadPageData,
   LoadPageDataQuery,
@@ -52,7 +53,9 @@ export function Page(props: React.PropsWithChildren<PageProps>) {
           <span> </span>
           Cart
           <PriceLabel color="teal" $visible={Boolean(data?.cart.totalPrice)}>
-            {data?.cart.totalPrice}
+            <span data-testid={loc.components.page.totalPrice}>
+              {data?.cart.totalPrice}
+            </span>
             <span>$</span>
           </PriceLabel>
         </Menu.Item>

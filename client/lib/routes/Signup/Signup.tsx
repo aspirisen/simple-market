@@ -8,6 +8,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { loc } from "client/utils/loc";
 
 export const Signup = () => {
   return (
@@ -24,6 +25,7 @@ export const Signup = () => {
               iconPosition="left"
               placeholder="Name"
               name="name"
+              data-testid={loc.auth.name}
             />
 
             <Form.Input
@@ -32,6 +34,7 @@ export const Signup = () => {
               iconPosition="left"
               placeholder="E-mail address"
               name="email"
+              data-testid={loc.auth.email}
             />
 
             <Form.Input
@@ -41,9 +44,16 @@ export const Signup = () => {
               placeholder="Password"
               type="password"
               name="password"
+              data-testid={loc.auth.pass}
             />
 
-            <Button type="submit" color="teal" fluid size="large">
+            <Button
+              type="submit"
+              color="teal"
+              fluid
+              size="large"
+              data-testid={loc.auth.submit}
+            >
               Sign up
             </Button>
           </Segment>
